@@ -73,7 +73,7 @@ document.getElementById('calculate-btn').addEventListener('click', function () {
         (neighborhoodBelongings * neighborhoodFactor);
 
     // Scaling Factor to Amplify the Difference in Score
-    const scalingFactor = 10; // You can adjust this value (e.g., 10, 20, 50) to see bigger variations.
+    const scalingFactor = 20; // You can adjust this value (e.g., 10, 20, 50) to see bigger variations.
 
     // Amplify the score to make differences more visible
     const amplifiedScore = happinessScore * scalingFactor;
