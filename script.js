@@ -56,7 +56,13 @@ document.getElementById('calculate-btn').addEventListener('click', function () {
 
     const neighborhoodFactor = neighborhoodFactors[neighborhoodValue] || 0;
 
-    // Calculate Happiness Score
+    // Check if age, financialStrain, neighborhoodBelongings, and neighborhood are valid
+    if (isNaN(age) || isNaN(financialStrain) || isNaN(neighborhoodBelongings) || !neighborhood) {
+        alert("Please fill in all fields correctly.");
+        return;
+    }
+
+    // Calculate Raw Happiness Score
     const happinessScore = 
         (1.83582255399656E-07 * age) + 
         (-0.096195461 * female) + 
@@ -66,7 +72,19 @@ document.getElementById('calculate-btn').addEventListener('click', function () {
         (0.120410757915907 * financialStrain) + 
         (neighborhoodBelongings * neighborhoodFactor);
 
-    // Display Happiness Score in the results section, rounded to two decimal places
+    // Scaling Factor to Amplify the Difference in Score
+    const scalingFactor = 10; // You can adjust this value (e.g., 10, 20, 50) to see bigger variations.
+
+    // Amplify the score to make differences more visible
+    const amplifiedScore = happinessScore * scalingFactor;
+
+    // Normalize the score to be between 0 and 100
+    const minRawScore = -10;  // Estimate the minimum possible raw score
+    const maxRawScore = 10;   // Estimate the maximum possible raw score
+
+    let scaledScore = Math.min(Math.max((amplifiedScore - minRawScore) / (maxRawScore - minRawScore) * 100, 0), 100);
+
+    // Display the scaled happiness score (0-100)
     const happinessScoreElem = document.getElementById('happiness-score');
-    happinessScoreElem.innerHTML = `Happiness Score: <span>${happinessScore.toFixed(2)}</span>`;
+    happinessScoreElem.innerHTML = `Happiness Score: <span>${scaledScore.toFixed(2)}</span>`;
 });
