@@ -8,11 +8,11 @@ document.getElementById('calculate-btn').addEventListener('click', function () {
     const neighborhoodValue = document.getElementById('neighborhood').value;
 
     // Initialize coefficients
-    let female = 0, transgender = 0, neverMarried = 0, nowMarried = 0;
+    let male = 0, transgender = 0, neverMarried = 0, nowMarried = 0;
     
     // Determine gender coefficients
     if (genderValue === 'female') {
-        female = 1;
+        male = 1;
     } else if (genderValue === 'transgender') {
         transgender = 1;
     }
@@ -30,7 +30,7 @@ document.getElementById('calculate-btn').addEventListener('click', function () {
         'somewhat_hard': 2,
         'easy': 3,
         'very_easy': 4,
-        'dont_know': 0 // Assuming 0 if 'Don't know' is not part of the scoring
+        'dont_know': 0 
     }[financialStrainValue];
 
     const neighborhoodBelongings = {
@@ -38,7 +38,7 @@ document.getElementById('calculate-btn').addEventListener('click', function () {
         'disagree': 2,
         'agree': 3,
         'strongly_agree': 4,
-        'dont_know': 0 // Assuming 0 if 'Don't know' is not part of the scoring
+        'dont_know': 0 
     }[neighborhoodBelongingsValue];
 
     // Neighborhood factors
@@ -64,16 +64,16 @@ document.getElementById('calculate-btn').addEventListener('click', function () {
 
     // Calculate Raw Happiness Score
     const happinessScore = 
-        (1.83582255399656E-07 * age) + 
-        (-0.096195461 * female) + 
-        (-0.593993891905012 * transgender) + 
-        (0.173106493759191 * neverMarried) + 
-        (0.198614191274267 * nowMarried) + 
-        (0.120410757915907 * financialStrain) + 
+        (0.00 * age) + 
+        (-0.08 * male) + 
+        (-0.16 * transgender) + 
+        (0.04 * neverMarried) + 
+        (0.18 * nowMarried) + 
+        (0.12 * financialStrain) + 
         (neighborhoodBelongings * neighborhoodFactor);
 
     // Scaling Factor to Amplify the Difference in Score
-    const scalingFactor = 20; // You can adjust this value (e.g., 10, 20, 50) to see bigger variations.
+    const scalingFactor = 20; 
 
     // Amplify the score to make differences more visible
     const amplifiedScore = happinessScore * scalingFactor;
